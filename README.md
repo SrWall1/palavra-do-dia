@@ -1,6 +1,6 @@
 # Palavra do Dia  
 
-Aplicativo simples que exibe uma palavra inspiradora aleatória ao clicar em um botão.
+Site simples que exibe uma palavra inspiradora aleatória ao clicar em um botão.
 
 ## Como Usar  
 1. Abra o arquivo `index.html` no navegador.  
