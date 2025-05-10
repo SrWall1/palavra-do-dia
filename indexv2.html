@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Palavra do Dia 2025 - v2</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 50px 0;
+            min-height: 100vh;
+            transition: background 0.5s ease;
+        }
+        #container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        #data {
+            color: #7f8c8d;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+        #palavra {
+            font-size: 3em;
+            color: #2c3e50;
+            margin: 30px 0;
+            font-weight: bold;
+            min-height: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Palavra do Dia 2025</h1>
+        <div id="data">Hoje é <span id="data-atual"></span></div>
+        <div id="palavra"></div>
+    </div>
+
+    <script>
+        // Palavras organizadas por mês com temas específicos
+        const palavras2025 = [
+            // Janeiro - Azul claro (renovação/início)
+            "Renovação", "Começo", "Meta", "Foco", "Mudança", "Planejamento", "Disciplina",
+            "Persistência", "Otimismo", "Crescimento", "Transformação", "Determinação",
+            "Coragem", "Inspiração", "Clareza", "Compromisso", "Superação", "Aprendizado",
+            "Desafio", "Paciência", "Equilíbrio", "Harmonia", "Reflexão", "Simplicidade",
+            "Liberdade", "Conquista", "Novo", "Visão", "Intenção", "Propósito", "Início",
+
+            // Fevereiro - Rosa (amor/relacionamentos)
+            "Amor", "Carinho", "Empatia", "Generosidade", "Amizade", "Respeito", "Confiança",
+            "Lealdade", "Perdão", "Ternura", "Alegria", "Felicidade", "União", "Compreensão",
+            "Solidariedade", "Gentileza", "Cuidado", "Dedicação", "Harmonia", "Paz",
+            "Serenidade", "Aceitação", "Bondade", "Comunhão", "Compaixão", "Doação", "Afeto",
+            "Consideração",
+
+            // Março - Roxo (força feminina)
+            "Força", "Resiliência", "Igualdade", "Empoderamento", "Luta", "Conquista",
+            "Liberdade", "Coragem", "Sabedoria", "Criatividade", "Poder", "Independência",
+            "Voz", "Firmeza", "Autenticidade", "Determinação", "Superação", "Inspiração",
+            "Transformação", "Guerrreira", "Sensibilidade", "Intuição", "Multiplicidade",
+            "Delicadeza", "Beleza", "Presença", "Liderança", "Inovação", "Direitos", "Sororidade",
+            "Autonomia",
+
+            // Abril - Verde (natureza)
+            "Natureza", "Sustentabilidade", "Preservação", "Vida", "Florescer", "Recomeço",
+            "Fertilidade", "Equilíbrio", "Biodiversidade", "Ecologia", "Consciência", "Ciclo",
+            "Paz", "Serenidade", "Harmonia", "Luz", "Sol", "Chuva", "Vento", "Montanha",
+            "Mar", "Floresta", "Jardim", "Ar", "Água", "Terra", "Fogo", "Animais", "Verde",
+            "Renovação",
+
+            // Maio - Amarelo (trabalho/energia)
+            "Trabalho", "Dedicação", "Produtividade", "Esforço", "Compromisso", "Profissionalismo",
+            "Excelência", "Resultado", "Colaboração", "Equipe", "Liderança", "Inovação",
+            "Criatividade", "Estratégia", "Planejamento", "Foco", "Disciplina", "Persistência",
+            "Superação", "Reconhecimento", "Valor", "Mérito", "Conquista", "Realização",
+            "Sucesso", "Carreira", "Missão", "Impacto", "Legado", "Contribuição", "Energia",
+
+            // Junho - Laranja (festas juninas)
+            "Festa", "Celebração", "Fogueira", "Dança", "Música", "Comida", "Tradição",
+            "Cultura", "Família", "Amigos", "Alegria", "Felicidade", "União", "Memórias",
+            "Infância", "Saudade", "Calor", "Inverno", "Milho", "Quentão", "Bandeirinhas",
+            "São João", "Arraial", "Brincadeira", "Sorriso", "Fartura", "Comunidade", "Fé",
+            "Partilha", "Encontro",
+
+            // Julho - Vermelho (autoestima/poder)
+            "Autoestima", "Autoconfiança", "Amor-próprio", "Aceitação", "Autenticidade",
+            "Valor", "Respeito", "Empoderamento", "Poder", "Força", "Coragem", "Superação",
+            "Libertação", "Individualidade", "Orgulho", "Dignidade", "Firmeza", "Equilíbrio",
+            "Paz", "Realização", "Conquista", "Vitória", "Sucesso", "Gratidão", "Reconhecimento",
+            "Beleza", "Cuidado", "Carinho", "Personalidade", "Identidade", "Presença",
+
+            // Agosto - Azul escuro (criatividade)
+            "Criatividade", "Inovação", "Ideia", "Inspiração", "Imaginação", "Arte",
+            "Expressão", "Originalidade", "Talento", "Habilidade", "Potencial", "Descoberta",
+            "Exploração", "Experiência", "Ousadia", "Liberdade", "Transformação", "Reinvenção",
+            "Renovação", "Visão", "Perspectiva", "Diferente", "Único", "Singular", "Manifestação",
+            "Criação", "Construção", "Design", "Invento", "Experimento", "Quebra",
+
+            // Setembro - Marrom (conhecimento)
+            "Conhecimento", "Sabedoria", "Aprendizado", "Estudo", "Curiosidade", "Descoberta",
+            "Exploração", "Leitura", "Escrita", "Pesquisa", "Ciência", "Filosofia",
+            "Reflexão", "Pensamento", "Raciocínio", "Lógica", "Inteligência", "Entendimento",
+            "Compreensão", "Consciência", "Iluminação", "Verdade", "Fato", "Informação",
+            "Educação", "Ensino", "Livro", "Mestre", "Aluno", "Universidade", "Escola",
+
+            // Outubro - Branco (meditação/paz)
+            "Meditação", "Silêncio", "Paz", "Serenidade", "Calma", "Tranquilidade",
+            "Equilíbrio", "Harmonia", "Respiração", "Presença", "Atenção", "Consciência",
+            "Interior", "Alma", "Espírito", "Relaxamento", "Desapego", "Libertação",
+            "Cura", "Conexão", "Gratidão", "Amor", "Compaixão", "Perdão", "Aceitação",
+            "Fluir", "Entrega", "Fé", "Iluminação", "Zen", "Yoga",
+
+            // Novembro - Dourado (gratidão)
+            "Gratidão", "Agradecimento", "Reconhecimento", "Valor", "Apreço", "Bênção",
+            "Fortuna", "Sorte", "Dádiva", "Presente", "Generosidade", "Compartilhamento",
+            "Doação", "Retribuição", "Humildade", "Simplicidade", "Contentamento", "Felicidade",
+            "Alegria", "Paz", "Harmonia", "Amor", "Família", "Amigos", "Saúde", "Vida",
+            "Natureza", "Luz", "Oportunidade", "Experiência", "Crescimento",
+
+            // Dezembro - Vermelho/Verde (celebração)
+            "Celebração", "Festa", "Alegria", "Felicidade", "Amor", "União",
+            "Família", "Amigos", "Companheirismo", "Compartilhamento", "Generosidade", "Doação",
+            "Gratidão", "Reflexão", "Renovação", "Esperança", "Paz", "Harmonia", "Luz",
+            "Calor", "Conforto", "Tradição", "Memória", "Natal", "Ano Novo", "Despedida",
+            "Bem-estar", "Abundância", "Prosperidade", "Sucesso", "Realização"
+        ];
+
+        // Cores de fundo por mês
+        const coresMensais = [
+            '#e3f2fd', // Janeiro - Azul claro
+            '#fce4ec', // Fevereiro - Rosa
+            '#f3e5f5', // Março - Roxo
+            '#e8f5e9', // Abril - Verde claro
+            '#fff8e1', // Maio - Amarelo
+            '#fff3e0', // Junho - Laranja claro
+            '#ffebee', // Julho - Vermelho claro
+            '#e1f5fe', // Agosto - Azul claro
+            '#efebe9', // Setembro - Marrom claro
+            '#f5f5f5', // Outubro - Branco
+            '#fffde7', // Novembro - Dourado claro
+            '#ffebee'  // Dezembro - Vermelho claro (alternar com verde se quiser natalino)
+        ];
+
+
+        function pegarDiaDoAno() {
+            const hoje = new Date();
+            const inicioDoAno = new Date(hoje.getFullYear(), 0, 1);
+            const diasNoAno = Math.floor((hoje - inicioDoAno) / (1000 * 60 * 60 * 24));
+            return diasNoAno;
+        }
+
+        function atualizarPalavra() {
+            const diaDoAno = pegarDiaDoAno();
+            const mes = Math.floor(diaDoAno / 30); // Aproximação simples para o mês
+            const palavraDoDia = palavras2025[diaDoAno % palavras2025.length];
+
+            // Atualiza a palavra do dia e a cor de fundo
+            document.getElementById("palavra").textContent = palavraDoDia;
+            document.body.style.backgroundColor = coresMensais[mes];
+
+            // Formata a data no formato "DD/MM/YYYY"
+            const hoje = new Date();
+            const dataAtual = hoje.toLocaleDateString('pt-BR');
+            document.getElementById("data-atual").textContent = dataAtual;
+        }
+
+        // Chama a função para atualizar a palavra
+        atualizarPalavra();
+    </script>
+</body>
+</html>
