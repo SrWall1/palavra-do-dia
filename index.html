@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Palavra do Dia 2025</title>
+    <title>Palavra do Dia 2025 - v2</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -152,35 +152,28 @@
 
         function pegarDiaDoAno() {
             const hoje = new Date();
-            const inicioAno = new Date(hoje.getFullYear(), 0, 0);
-            const diff = hoje - inicioAno;
-            return Math.floor(diff / (1000 * 60 * 60 * 24));
+            const inicioDoAno = new Date(hoje.getFullYear(), 0, 1);
+            const diasNoAno = Math.floor((hoje - inicioDoAno) / (1000 * 60 * 60 * 24));
+            return diasNoAno;
         }
 
-
-        function mostrarPalavraDoDia() {
+        function atualizarPalavra() {
             const diaDoAno = pegarDiaDoAno();
-            const mesAtual = new Date().getMonth();
-            
- 
-            document.body.style.background = coresMensais[mesAtual];
-            
-           
-            const opcoesData = { 
-                weekday: 'long', 
-                day: 'numeric', 
-                month: 'long', 
-                year: 'numeric' 
-            };
-            const dataFormatada = new Date().toLocaleDateString('pt-BR', opcoesData);
-            
-    
-            document.getElementById('data-atual').textContent = dataFormatada;
-            document.getElementById('palavra').textContent = palavras2025[diaDoAno - 1] || "Palavra não encontrada";
+            const mes = Math.floor(diaDoAno / 30); // Aproximação simples para o mês
+            const palavraDoDia = palavras2025[diaDoAno % palavras2025.length];
+
+            // Atualiza a palavra do dia e a cor de fundo
+            document.getElementById("palavra").textContent = palavraDoDia;
+            document.body.style.backgroundColor = coresMensais[mes];
+
+            // Formata a data no formato "DD/MM/YYYY"
+            const hoje = new Date();
+            const dataAtual = hoje.toLocaleDateString('pt-BR');
+            document.getElementById("data-atual").textContent = dataAtual;
         }
 
-
-        window.onload = mostrarPalavraDoDia;
+        // Chama a função para atualizar a palavra
+        atualizarPalavra();
     </script>
 </body>
 </html>
